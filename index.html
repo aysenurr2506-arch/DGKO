@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sana Özel Doğum Günü Kartı (CSS ile)</title>
+    <title>Sana Özel Doğum Günü Kartı</title>
     
     <style>
+        /* GENEL SAYFA STİLLERİ */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Georgia', serif;
-            background: linear-gradient(to bottom right, #f8f8ff, #add8e6); /* Hafif gradyan arka plan */
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #f0f8ff, #ffefd5); /* Açık renkli gradyan arka plan */
         }
 
+        /* KARTIN KAPSAYICISI (3D GÖRÜNTÜ İÇİN ÖNEMLİ) */
         .card-wrapper {
             position: relative;
-            width: 300px;
-            height: 400px;
-            perspective: 1000px; /* 3D efekti için */
+            width: 320px;
+            height: 420px;
+            perspective: 1000px; 
         }
 
-        /* Kartın dış yüzeyi (KAPALI hali) */
-        .card-front {
+        /* KARTIN ÖN VE ARKA YÜZLERİNİN TEMEL STİLİ */
+        .card-front, .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: #ffb6c1; /* Kapalı renk: Açık pembe */
             border-radius: 15px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             display: flex;
@@ -37,33 +38,57 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            z-index: 2; /* Ön tarafta kalması için */
+            transition: transform 0.8s; /* Animasyon hızı */
+            backface-visibility: hidden; /* Kart dönerken diğer yüzün görünmesini engeller */
         }
 
-        /* Kartın iç yüzeyi (AÇIK hali) */
+        /* KARTIN ÖN YÜZÜ (KAPALI HALİ) */
+        .card-front {
+            background-color: #ffc0cb; /* Pembe */
+            z-index: 2; 
+        }
+
+        .front-text {
+            font-size: 30px;
+            color: #8b0000; /* Koyu Kırmızı */
+            font-weight: bold;
+            padding: 20px;
+        }
+        
+        /* KARTIN ARKA YÜZÜ (AÇIK HALİ) */
         .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #fffacd; /* Açık renk: Sarımsı */
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            background-color: #f7f7f7; /* Açık Gri/Beyaz */
             transform: rotateY(180deg); /* Başlangıçta arkası dönük */
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
             padding: 30px;
             box-sizing: border-box;
             line-height: 1.5;
         }
 
-        /* Hover efekti: Fare üzerine geldiğinde kartı çevir */
+        .back-message-title {
+            font-size: 36px;
+            color: #4CAF50; /* Yeşil */
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .back-message-body {
+            font-size: 18px;
+            color: #333;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .signature {
+            font-size: 16px;
+            color: #555;
+            margin-top: auto; /* En alta ittirir */
+            text-align: right;
+            width: 100%;
+            padding-right: 15px;
+            font-style: italic;
+        }
+
+        /* HOVER ETKİSİ: FARE ÜZERİNE GELDİĞİNDE KARTIN DÖNMESİ */
         .card-wrapper:hover .card-front {
             transform: rotateY(-180deg);
         }
@@ -71,49 +96,33 @@
         .card-wrapper:hover .card-back {
             transform: rotateY(0deg);
         }
-
-        .front-text {
-            font-size: 28px;
-            color: #8b0000;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        }
-
-        .back-message {
-            font-size: 22px;
-            color: #4CAF50;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .signature {
-            font-size: 16px;
-            color: #333;
-            margin-top: auto;
-        }
     </style>
 </head>
 <body>
 
     <div class="card-wrapper">
         <div class="card-front">
-            <span class="front-text">Bana Tıkla (veya Üzerime Gel)</span>
-            <p style="font-size: 14px; color: #555;">Sana bir sürprizim var!</p>
+            <span class="front-text">Bana Dokun (veya Üzerime Gel)!</span>
+            <p style="font-size: 16px; color: #555;">Sana Özel Bir Dilek Var...</p>
         </div>
 
         <div class="card-back">
-            <div class="back-message">
-                Mutlu Yıllar! 🎉
+            <div class="back-message-title">
+                İYİ Kİ DOĞDUN! 🎉🎂
             </div>
-            <p>
-                Sevgili [İSİM],
+            
+            <div class="back-message-body">
+                Sevgili **[Kutlanan Kişinin Adı]**,
                 <br><br>
-                Hayatının bu yeni yaşında tüm güzellikler seninle olsun. Tüm dileklerinin gerçekleştiği, neşe dolu bir yıl dilerim!
-            </p>
+                Yeni yaşın sana sağlık, mutluluk ve başarı getirsin. Hayallerine ulaşman dileğiyle...
+                <br><br>
+                Tüm dileklerinin gerçekleştiği, neşe dolu bir yıl dilerim!
+            </div>
+            
             <div class="signature">
                 Sevgilerimle,
                 <br>
-                [SENİN ADIN]
+                **[Senin Adın]**
             </div>
         </div>
     </div>
