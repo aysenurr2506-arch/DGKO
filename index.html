@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sana Özel Doğum Günü Kartı</title>
-
+    <title>Sana Özel Doğum Günü Kartı (CSS ile)</title>
+    
     <style>
         body {
             display: flex;
@@ -12,76 +12,111 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff; /* Açık mavi arka plan */
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to bottom right, #f8f8ff, #add8e6); /* Hafif gradyan arka plan */
         }
 
-        .card-container {
-            perspective: 1000px; /* 3D efektler için perspektif */
-        }
-
-        .birthday-card {
+        .card-wrapper {
+            position: relative;
             width: 300px;
             height: 400px;
-            background-color: #ffb6c1; /* Açık pembe kart rengi */
+            perspective: 1000px; /* 3D efekti için */
+        }
+
+        /* Kartın dış yüzeyi (KAPALI hali) */
+        .card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ffb6c1; /* Kapalı renk: Açık pembe */
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             display: flex;
-            flex-direction: column; /* Mesajı ve altındaki içeriği dikeyde ortalar */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            cursor: pointer; /* Tıklanabilir olduğunu belli eder */
-            transition: transform 0.5s ease-in-out;
-            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            z-index: 2; /* Ön tarafta kalması için */
+        }
+
+        /* Kartın iç yüzeyi (AÇIK hali) */
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fffacd; /* Açık renk: Sarımsı */
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transform: rotateY(180deg); /* Başlangıçta arkası dönük */
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            padding: 30px;
             box-sizing: border-box;
+            line-height: 1.5;
         }
 
-        .birthday-card:hover {
-            transform: scale(1.05); /* Fare üzerine gelince hafif büyüme */
+        /* Hover efekti: Fare üzerine geldiğinde kartı çevir */
+        .card-wrapper:hover .card-front {
+            transform: rotateY(-180deg);
         }
 
-        #mesaj {
-            font-size: 24px;
-            color: #8b0000; /* Koyu kırmızı yazı rengi */
+        .card-wrapper:hover .card-back {
+            transform: rotateY(0deg);
+        }
+
+        .front-text {
+            font-size: 28px;
+            color: #8b0000;
             font-weight: bold;
-            user-select: none; /* Metnin seçilmesini engeller */
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
         }
 
-        /* Kart açıldıktan sonraki stil */
-        .acik {
-             background-color: #fffacd; /* Açıldıktan sonra sarımsı bir renk */
+        .back-message {
+            font-size: 22px;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
-        .acik #mesaj {
-            font-size: 32px; /* Daha büyük font */
-            color: #4CAF50; /* Yeşil renk */
-            white-space: pre-wrap; /* Alt satır karakterini destekler */
+
+        .signature {
+            font-size: 16px;
+            color: #333;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <div class="card-container">
-        <div class="birthday-card" onclick="kutlamaGoster(this)">
-            <p id="mesaj">Kartı Açmak İçin Tıkla!</p>
+    <div class="card-wrapper">
+        <div class="card-front">
+            <span class="front-text">Bana Tıkla (veya Üzerime Gel)</span>
+            <p style="font-size: 14px; color: #555;">Sana bir sürprizim var!</p>
+        </div>
+
+        <div class="card-back">
+            <div class="back-message">
+                Mutlu Yıllar! 🎉
+            </div>
+            <p>
+                Sevgili [İSİM],
+                <br><br>
+                Hayatının bu yeni yaşında tüm güzellikler seninle olsun. Tüm dileklerinin gerçekleştiği, neşe dolu bir yıl dilerim!
+            </p>
+            <div class="signature">
+                Sevgilerimle,
+                <br>
+                [SENİN ADIN]
+            </div>
         </div>
     </div>
 
-    <script>
-        // Tıklama olayını yönetecek fonksiyon
-        function kutlamaGoster(kartElementi) {
-            // Mesaj elementini buluyoruz
-            const mesajAlani = document.getElementById('mesaj');
-
-            // Mesajı değiştiriyoruz ve alt satır ekliyoruz (\n)
-            mesajAlani.innerHTML = "Sevgili Dostum,\n\nDoğum Günün Kutlu Olsun!\n🎉🎂🎈\n\nNice Mutlu Yıllara!";
-            
-            // Kartın stilini değiştirmek için 'acik' sınıfını ekliyoruz
-            kartElementi.classList.add('acik');
-
-            // Tıklandığında sadece bir kere çalışması için click olayını kaldırıyoruz
-            kartElementi.onclick = null;
-        }
-    </script>
 </body>
 </html>
