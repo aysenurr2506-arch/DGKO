@@ -13,3 +13,4 @@ function kutlamaGoster() {
     // Tıklandığında sadece bir kere çalışması için click olayını kaldırıyoruz
     kart.onclick = null;
 }
+
