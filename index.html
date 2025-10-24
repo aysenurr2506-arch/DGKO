@@ -4,16 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sana Özel Doğum Günü Kartı</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Açık mavi arka plan */
+        }
+
+        .card-container {
+            perspective: 1000px; /* 3D efektler için perspektif */
+        }
+
+        .birthday-card {
+            width: 300px;
+            height: 400px;
+            background-color: #ffb6c1; /* Açık pembe kart rengi */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column; /* Mesajı ve altındaki içeriği dikeyde ortalar */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer; /* Tıklanabilir olduğunu belli eder */
+            transition: transform 0.5s ease-in-out;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .birthday-card:hover {
+            transform: scale(1.05); /* Fare üzerine gelince hafif büyüme */
+        }
+
+        #mesaj {
+            font-size: 24px;
+            color: #8b0000; /* Koyu kırmızı yazı rengi */
+            font-weight: bold;
+            user-select: none; /* Metnin seçilmesini engeller */
+        }
+
+        /* Kart açıldıktan sonraki stil */
+        .acik {
+             background-color: #fffacd; /* Açıldıktan sonra sarımsı bir renk */
+        }
+        .acik #mesaj {
+            font-size: 32px; /* Daha büyük font */
+            color: #4CAF50; /* Yeşil renk */
+            white-space: pre-wrap; /* Alt satır karakterini destekler */
+        }
+    </style>
 </head>
 <body>
 
     <div class="card-container">
-        <div class="birthday-card" onclick="kutlamaGoster()">
+        <div class="birthday-card" onclick="kutlamaGoster(this)">
             <p id="mesaj">Kartı Açmak İçin Tıkla!</p>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Tıklama olayını yönetecek fonksiyon
+        function kutlamaGoster(kartElementi) {
+            // Mesaj elementini buluyoruz
+            const mesajAlani = document.getElementById('mesaj');
+
+            // Mesajı değiştiriyoruz ve alt satır ekliyoruz (\n)
+            mesajAlani.innerHTML = "Sevgili Dostum,\n\nDoğum Günün Kutlu Olsun!\n🎉🎂🎈\n\nNice Mutlu Yıllara!";
+            
+            // Kartın stilini değiştirmek için 'acik' sınıfını ekliyoruz
+            kartElementi.classList.add('acik');
+
+            // Tıklandığında sadece bir kere çalışması için click olayını kaldırıyoruz
+            kartElementi.onclick = null;
+        }
+    </script>
 </body>
 </html>
