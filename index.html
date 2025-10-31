@@ -6,126 +6,125 @@
     <title>Sana Özel Doğum Günü Kartı</title>
     
     <style>
-        /* GENEL SAYFA STİLLERİ */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #fce4ec; /* Açık pembe arka plan */
+            color: #333;
             min-height: 100vh;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom right, #f0f8ff, #ffefd5); /* Açık renkli gradyan arka plan */
-        }
-
-        /* KARTIN KAPSAYICISI (3D GÖRÜNTÜ İÇİN ÖNEMLİ) */
-        .card-wrapper {
-            position: relative;
-            width: 320px;
-            height: 420px;
-            perspective: 1000px; 
-        }
-
-        /* KARTIN ÖN VE ARKA YÜZLERİNİN TEMEL STİLİ */
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #d81b60; /* Koyu pembe */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .main-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* TIKLANACAK BUTON STİLİ */
+        #dokun-butonu {
             cursor: pointer;
-            transition: transform 0.8s; /* Animasyon hızı */
-            backface-visibility: hidden; /* Kart dönerken diğer yüzün görünmesini engeller */
+            padding: 12px 25px;
+            background-color: #ff69b4; /* Sıcak pembe */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-block;
+            margin-top: 15px;
         }
 
-        /* KARTIN ÖN YÜZÜ (KAPALI HALİ) */
-        .card-front {
-            background-color: #ffc0cb; /* Pembe */
-            z-index: 2; 
-        }
-
-        .front-text {
-            font-size: 30px;
-            color: #8b0000; /* Koyu Kırmızı */
-            font-weight: bold;
-            padding: 20px;
+        #dokun-butonu:hover {
+            background-color: #ff1493;
         }
         
-        /* KARTIN ARKA YÜZÜ (AÇIK HALİ) */
-        .card-back {
-            background-color: #f7f7f7; /* Açık Gri/Beyaz */
-            transform: rotateY(180deg); /* Başlangıçta arkası dönük */
-            padding: 30px;
-            box-sizing: border-box;
-            line-height: 1.5;
+        #dokun-butonu:active {
+            transform: scale(0.98);
         }
 
-        .back-message-title {
-            font-size: 36px;
-            color: #4CAF50; /* Yeşil */
-            font-weight: 900;
-            margin-bottom: 15px;
-        }
-
-        .back-message-body {
-            font-size: 18px;
-            color: #333;
-            text-align: left;
-            margin-bottom: 25px;
-        }
-
-        .signature {
-            font-size: 16px;
-            color: #555;
-            margin-top: auto; /* En alta ittirir */
-            text-align: right;
-            width: 100%;
-            padding-right: 15px;
+        /* GİZLİ MESAJ STİLİ */
+        #gizli-mesaj {
+            border-top: 2px solid #ff69b4;
+            padding-top: 20px;
+            margin-top: 20px;
+            color: #4a148c; /* Mor vurgu */
+            font-weight: bold;
             font-style: italic;
+            display: none; /* BAŞLANGIÇTA GİZLİ */
+            animation: fadeIn 1s; /* Açılırken animasyon */
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* HOVER ETKİSİ: FARE ÜZERİNE GELDİĞİNDE KARTIN DÖNMESİ */
-        .card-wrapper:hover .card-front {
-            transform: rotateY(-180deg);
-        }
-
-        .card-wrapper:hover .card-back {
-            transform: rotateY(0deg);
-        }
     </style>
 </head>
 <body>
 
-    <div class="card-wrapper">
-        <div class="card-front">
-            <span class="front-text">Bana Dokun!</span>
-            <p style="font-size: 16px; color: #555;">Sana Özel Bir Dilek Var...</p>
+    <div class="card">
+        
+        <h1>İYİ Kİ DOĞDUN! 🎉🎂</h1>
+        
+        <div class="main-text">
+            <p><strong>Mini Ahmet</strong>,</p>
+            <p>Yeni yaşın sana sağlık, mutluluk ve başarı getirsin. Hayallerine ulaşman dileğiyle...</p>
+            <p>Tüm dileklerinin gerçekleştiği, neşe dolu bir yıl dilerim!</p>
+        </div>
+        
+        <div id="dokun-butonu">
+            Bana Dokun! Sana Özel Bir Dilek Var...
         </div>
 
-        <div class="card-back">
-            <div class="back-message-title">
-                İYİ Kİ DOĞDUN! 🎉🎂
-            </div>
-            
-            <div class="back-message-body">
-                **Mini Ahmet**,
-                <br><br>
-                Yeni yaşın sana sağlık, mutluluk ve başarı getirsin. Hayallerine ulaşman dileğiyle...
-                <br><br>
-                Tüm dileklerinin gerçekleştiği, neşe dolu bir yıl dilerim!
-            </div>
-            
-            <div class="signature">
-                Sevgilerimle,
-                <br>
-                **Ays**
-            </div>
+        <div id="gizli-mesaj">
+            <p>"Seni her zaman çok seven, kocaman kalpli bir **Ays**'ın var. Unutma, bu yıl en güzel yılın olacak!"</p>
         </div>
+
+        <p style="margin-top: 30px; font-style: italic;">Sevgilerimle, Ays</p>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // HTML'deki iki ana öğeyi seçiyoruz
+            const dokunButonu = document.getElementById('dokun-butonu');
+            const gizliMesaj = document.getElementById('gizli-mesaj');
+
+            // Butona tıklama olayı ekliyoruz
+            dokunButonu.addEventListener('click', function() {
+                // Gizli mesajın stilini kontrol ediyoruz
+                if (gizliMesaj.style.display === 'none' || gizliMesaj.style.display === '') {
+                    // Gizliyse, görünür yap ('block' yapar)
+                    gizliMesaj.style.display = 'block'; 
+                    dokunButonu.textContent = 'Kapatmak için Tekrar Dokun'; // Buton yazısını değiştir
+                } else {
+                    // Görünürse, gizle
+                    gizliMesaj.style.display = 'none';
+                    dokunButonu.textContent = 'Bana Dokun! Sana Özel Bir Dilek Var...'; // Buton yazısını eski haline getir
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
