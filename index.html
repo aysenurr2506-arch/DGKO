@@ -3,128 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sana Özel Doğum Günü Kartı</title>
-    
+    <title>Sana Bir Mesajım Var ❤️</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap');
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #fce4ec; /* Açık pembe arka plan */
-            color: #333;
-            min-height: 100vh;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #ffe3e3; /* Yumuşak pembe arka plan */
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
         }
 
-        .card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            max-width: 90%;
-            margin: 20px;
+        /* Uçuşan Kalpler Animasyonu */
+        .heart-bg {
+            position: absolute;
+            color: #ffb7b7;
+            font-size: 20px;
+            animation: fly 5s linear infinite;
+            z-index: 0;
         }
 
-        h1 {
-            color: #d81b60; /* Koyu pembe */
-            font-size: 2.5em;
-            margin-bottom: 20px;
+        @keyframes fly {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        .main-text {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        /* TIKLANACAK BUTON STİLİ */
-        #dokun-butonu {
+        /* Zarf Konteynırı */
+        .envelope-wrapper {
+            position: relative;
             cursor: pointer;
-            padding: 12px 25px;
-            background-color: #ff69b4; /* Sıcak pembe */
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            transition: background-color 0.3s, transform 0.1s;
-            display: inline-block;
-            margin-top: 15px;
+            z-index: 10;
+            transition: 0.5s;
         }
 
-        #dokun-butonu:hover {
-            background-color: #ff1493;
-        }
-        
-        #dokun-butonu:active {
-            transform: scale(0.98);
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #f08080; /* Koyu pembe/kırmızı zarf */
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
-        /* GİZLİ MESAJ STİLİ */
-        #gizli-mesaj {
-            border-top: 2px solid #ff69b4;
-            padding-top: 20px;
-            margin-top: 20px;
-            color: #4a148c; /* Mor vurgu */
+        /* Zarfın Kapağı */
+        .envelope:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #f08080;
+            transform-origin: top;
+            transition: transform 0.5s 0.3s;
+        }
+
+        /* Zarfın İç Kısmı */
+        .envelope:after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            width: 300px;
+            height: 200px;
+            background: #e57373;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid #f08080;
+            box-sizing: border-box;
+        }
+
+        /* Mektup Kağıdı */
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background: white;
+            z-index: 1;
+            transition: 0.5s;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .letter h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .letter p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        /* Zarf Açıldığında Olacaklar */
+        .envelope-wrapper.open .envelope:before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-wrapper.open .letter {
+            bottom: 100px;
+            height: 350px; /* Mektup dışarı uzuyor */
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow-y: auto; /* Yazı uzunsa kaydırılabilir */
+        }
+
+        /* Tıkla Mesajı */
+        .instruction {
+            position: absolute;
+            bottom: -50px;
+            width: 100%;
+            text-align: center;
+            color: #d32f2f;
             font-weight: bold;
-            font-style: italic;
-            display: none; /* BAŞLANGIÇTA GİZLİ */
-            animation: fadeIn 1s; /* Açılırken animasyon */
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            animation: bounce 1s infinite alternate;
         }
 
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(10px); } }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        
-        <h1>İYİ Kİ DOĞDUN! 🎉🎂</h1>
-        
-        <div class="main-text">
-            <p><strong>Rabia♡</strong>,</p>
-            <p>Yeni yaşın sana sağlık, mutluluk ve başarı getirsin. Hayallerine ulaşman dileğiyle...</p>
-            <p>Tüm dileklerinin gerçekleştiği, neşe dolu bir yıl dilerim! Seni çok seviyorum</p>
+    <div class="envelope-wrapper" onclick="this.classList.toggle('open')">
+        <div class="envelope">
+            <div class="letter">
+                <h2>Canım Sevgilim,</h2>
+                <p>Bugün senin günün... Yanında olduğum her an için şükrediyorum. Senin gülüşün benim dünyamı aydınlatıyor.</p>
+                <p>İyi ki doğdun, iyi ki benimlesin. Gelecekteki tüm yaşlarını birlikte kutlamak dileğiyle...</p>
+                <p>Seni dünyalar kadar çok seviyorum! ❤️</p>
+                <p style="font-family: 'Dancing Script'; font-size: 20px;">- Senin Biriciğin</p>
+            </div>
         </div>
-        
-        <div id="dokun-butonu">
-            Bana Dokun! Sana Özel Bir Dilek Var...
-        </div>
-
-        <div id="gizli-mesaj">
-            <p>"İyi kalbin, kişiliğin ve dostluğun için teşekkür ederim </p>
-        </div>
-
-        <p style="margin-top: 30px; font-style: italic;">Sevgilerimle, Ays</p>
+        <div class="instruction">Mektubu açmak için tıkla ❤️</div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // HTML'deki iki ana öğeyi seçiyoruz
-            const dokunButonu = document.getElementById('dokun-butonu');
-            const gizliMesaj = document.getElementById('gizli-mesaj');
-
-            // Butona tıklama olayı ekliyoruz
-            dokunButonu.addEventListener('click', function() {
-                // Gizli mesajın stilini kontrol ediyoruz
-                if (gizliMesaj.style.display === 'none' || gizliMesaj.style.display === '') {
-                    // Gizliyse, görünür yap ('block' yapar)
-                    gizliMesaj.style.display = 'block'; 
-                    dokunButonu.textContent = 'Kapatmak için Tekrar Dokun'; // Buton yazısını değiştir
-                } else {
-                    // Görünürse, gizle
-                    gizliMesaj.style.display = 'none';
-                    dokunButonu.textContent = 'Bana Dokun! Sana Özel Bir Dilek Var...'; // Buton yazısını eski haline getir
-                }
-            });
-        });
+        // Arka planda uçuşan kalpler oluşturma
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+        setInterval(createHeart, 300);
     </script>
-
 </body>
 </html>
